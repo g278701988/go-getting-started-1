@@ -1,18 +1,15 @@
 package main
 
 import (
-	"fmt"
-	"net/http"
+	"os"
 )
 
 func main() {
-	fmt.Println("Starting hello-world server...")
-	http.HandleFunc("/", helloServer)
-	if err := http.ListenAndServe(":8080", nil); err != nil {
-		panic(err)
-	}
-}
+	port := os.Getenv("PORT")
 
-func helloServer(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprint(w, "Hello world!")
+	if port == "" {
+		port = "8080"
+	}
+	Start(port)
+
 }
